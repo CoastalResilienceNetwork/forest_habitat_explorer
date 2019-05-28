@@ -1007,7 +1007,7 @@ define([
 						if (selindex == geography.tabs.length) {
 							//'Recommendations' tab
 							a = lang.hitch(this,function(){this.doCombined()})
-							a();
+							setTimeout(a, 500);
 						} else {
 							//all other tabs
 							a = lang.hitch(this,function(){this.updateService()})
