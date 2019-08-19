@@ -721,26 +721,26 @@ define([
 					domStyle.set(this.textnode, "display", "none");
 					//Instructions Tab
 					if (geography.intro != undefined) {
-						this.sliderpane = new ContentPane({
-							style: "display: none",
-							title: geography.intro.name,
-							index: -1,
-							"data-index": -1,
-							content: geography.intro.text
-						});	
-						this.sliderpane.titleText = geography.intro.name;//LM hanging on a new sliderpane property for easy access to the tab title name
-						this.tabpan.addChild(this.sliderpane);	
-					}
-					if (this.introLayer != undefined) {
-						this.introLayer = new ArcGISDynamicMapServiceLayer(geography.intro.layer.url,{
-							useMapImage: true
+						console.log('run again');
+						/* CBESSEE */
+
+						// Create Getting started panel
+						this.introPane = new ContentPane({
+							content: geography.intro.text,
+							style: "width: 475px; position: absolute; opacity: 1; top: 0px; padding: 0px !important; z-index: 950; height: 100%; overflow-y: scroll; background-color: white;"
 						});
-						this.introLayer.setVisibleLayers(geography.intro.layer.show)
-						this.map.addLayer(this.introLayer);
+						dom.byId(this.container).appendChild(this.introPane.domNode);
+						this.exploreRecs = dojoquery(".exploreRecs");
+						console.log(this.exploreRecs);
+						on(this.exploreRecs, "click", lang.hitch(this,function(e){
+							console.log('close intro');
+							domStyle.set(this.introPane.domNode, "display", "none");
+						}));
 					}
 					ancillaryon = new Array();
 					//iterate over tabs array from config
 					array.forEach(geography.tabs, lang.hitch(this,function(tab, t){
+
 						if (tab.hoverText == undefined) { tab.hoverText = "" }
 						this.sliderpane = new ContentPane({
 							"data-pane": "ActualTabs",
@@ -964,7 +964,7 @@ define([
 												cb.set("checked", false);
 											}));
 										}),
-										style: "width:500px;margin-top:10px;margin-bottom:20px"
+										style: "width:425px;margin-top:10px;margin-bottom:20px"
 									}, nslidernode);
 									parser.parse()
 								}
@@ -995,19 +995,7 @@ define([
 						console.debug('Tab container selectChild event handling....');
 						this.resize();
 						selindex = o[0].index;
-						if (selindex != -1) {
-							if (this.introLayer != undefined) {
-								  this.map.removeLayer(this.introLayer);
-							}
-							$(this.printButton).show();
-						} else {
-							$(this.printButton).hide();
-							this.introLayer = new ArcGISDynamicMapServiceLayer(geography.intro.layer.url,{
-								useMapImage: true
-							});
-							this.introLayer.setVisibleLayers(geography.intro.layer.show)
-							this.map.addLayer(this.introLayer);
-						}
+						console.log("index", selindex);
 						if (selindex == geography.tabs.length) {
 							//'Recommendations' tab
 							a = lang.hitch(this,function(){this.doCombined()})
@@ -1062,11 +1050,14 @@ define([
 					if(this.stateTabIndex != null){
 						try{
 							var tabsArr = this.tabpan.getChildren();
-							this.tabpan.selectChild(tabsArr[this.stateTabIndex + 1]); 
+							this.tabpan.selectChild(tabsArr[this.stateTabIndex]); 
 						} catch(err){
 							//most likely reason to fall in here would be an out-of-bounds index for the tabsarr index
 							console.error('Unable to set current tab: ', err);
 						}
+					} else {
+						var tabsArr = this.tabpan.getChildren();
+						this.tabpan.selectChild(tabsArr[tabsArr.length - 1]); 
 					}
 					//clear the 'state' vars in case they were set/used in initial load from 'save and share' link (see method setState()).
 					this.stateTabIndex = null;
@@ -1513,25 +1504,6 @@ define([
 					}
 					tabs = this.tabpan.getChildren();
 					selectedIndex = this.tabpan.selectedChildWidget.index;
-					//Instructions tab is at index -1
-					if (selectedIndex == -1) {
-						//toggle visibility of tab[0] main content
-						domClass.remove(dojoquery(tabs[0].containerNode).parent()[0], "dijitHidden");
-						domClass.add(dojoquery(tabs[0].containerNode).parent()[0], "dijitVisible");
-						//this.introLayer is undefined at this point on first load.
-						if (this.introLayer == undefined) {
-							this.introLayer = new ArcGISDynamicMapServiceLayer(this.geography.intro.layer.url,{
-								useMapImage: true
-							});
-							//value of this.geography.intro.layer.show, as currently set in config, is [118]
-							this.introLayer.setVisibleLayers(this.geography.intro.layer.show)
-							this.map.addLayer(this.introLayer);	
-						}
-					} else {
-						//toggle visibility of tab[0] main content
-						domClass.remove(dojoquery(tabs[0].containerNode).parent()[0], "dijitVisible");
-						domClass.add(dojoquery(tabs[0].containerNode).parent()[0], "dijitHidden");					
-					}
 				},
 				/** 
 				 * TODO deprecated LM 3/15/18
