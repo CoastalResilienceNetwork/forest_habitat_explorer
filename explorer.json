@@ -32,7 +32,7 @@
 				"hoverText" : "Current health or status of the target.",
 				"sliderLabels" : ["None","Low","Med","High","V.High"],
 				"colorRamp": [[1, 255, 255, 155], [2, 157,243,58], [3, 114,204,138], [4, 81,145,182], [5, 58,77,159]],
-				"inputRanges" : [0,20,20,40,40,60,60,80,80,100],
+				"inputRanges" : [0,20,20,40,40,60,60,80,80,101],
 				"outputValues" : [1,2,3,4,5],
 				"items": [	{
 								"text": "Adjust the sliders to alter the weight of each indicator in the overall score, or to “None” to remove it.  Adjustments will be reflected in the Recommendations.", 
@@ -105,7 +105,7 @@
 				"hoverText": ": The expected trend in condition due to human activities through the 2050s.  May be ongoing (having contributed to a past decline in condition that may persist or get worse) or new (not previously encountered or significant but expected to cause future declines in condition).  Can include indirect impacts of climate change, such as increased severity of nutrient pollution impacts due to warmer water temperatures, but direct climate change exposure, such as drought stress on forests, is considered separately under Exposure",
 				"sliderLabels" : ["None","Low","Med","High","V.High"],
 				"colorRamp": [[1, 255, 255, 155], [2, 157,243,58], [3, 114,204,138], [4, 81,145,182], [5, 58,77,159]],
-				"inputRanges" : [0,20,20,40,40,60,60,80,80,100],
+				"inputRanges" : [0,20,20,40,40,60,60,80,80,101],
 				"outputValues" : [1,2,3,4,5],
 				"items": [	{
 								"text": "Adjust the sliders to alter the weight of each indicator in the overall score, or to “None” to remove it.  Adjustments will be reflected in the Recommendations.", 
@@ -166,7 +166,7 @@
 				"hoverText": "The degree to which the habitat is likely to change in response to climate change, based on both inherent attributes and additional risk factors related to the landscape or management context.  Sensitivity is not a direct prediction of specific climate impacts, but indicates the relative risk of experiencing impacts if exposed to climate change. Sensitivity may be considered the inverse of what is often referred to as “resilience” to climate change.",
 				"sliderLabels" : ["None","Low","Med","High","V.High"],
 				"colorRamp": [[1, 255, 255, 155], [2, 157,243,58], [3, 114,204,138], [4, 81,145,182], [5, 58,77,159]],
-				"inputRanges" : [0,20,20,40,40,60,60,80,80,100],
+				"inputRanges" : [0,20,20,40,40,60,60,80,80,101],
 				"outputValues" : [1,2,3,4,5],
 				"items": [	{
 								"text": "Adjust the sliders to alter the weight of each indicator in the overall score, or to “None” to remove it.  Adjustments will be reflected in the Recommendations.", 
@@ -239,7 +239,7 @@
 				"hoverText": "The degree of direct changes in climate, such as temperature or moisture regime, that the location is predicted to experience. Exposure is evaluated as amount of change, independent of direction.",
 				"sliderLabels" : ["None","Low","Med","High","V.High"],
 				"colorRamp": [[1, 255, 255, 155], [2, 157,243,58], [3, 114,204,138], [4, 81,145,182], [5, 58,77,159]],
-				"inputRanges" : [0,20,20,40,40,60,60,80,80,100],
+				"inputRanges" : [0,20,20,40,40,60,60,80,80,101],
 				"outputValues" : [1,2,3,4,5],
 				"items": [	{
 								"text": "Adjust the sliders to alter the weight of each indicator in the overall score, or to “None” to remove it.  Adjustments will be reflected in the Recommendations.", 
