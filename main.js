@@ -1661,6 +1661,8 @@ define([
 						return;
 					}
 					if (this.currentLayer && this.currentLayer.url.includes("ImageServer") == true) {
+						expandScript = 'function toggleVarTable() {var expand = document.getElementById("toggle-table");var table = document.getElementById("var-table");if(expand.innerHTML == "More Details") {expand.innerHTML = "Less Details";table.style.display = "block";} else {expand.innerHTML = "More Details";table.style.display = "none";}} toggleVarTable(); return false;';
+
 						//FOREST processing
 						idTask = new esri.tasks.ImageServiceIdentifyTask(this.geography.url);
 						identifyParams = new ImageServiceIdentifyParameters();
@@ -1691,7 +1693,7 @@ define([
 										processResults("<br> Value at Mouse Click: <b>" + dojo.eval(replacedFormula).toFixed(3).replace(".000", '') + "</b><br>" + idtable + "Formula: <br>" + this.geography.BandFormulaText);	
 									} else {
 										//user is on the Recommendations tab, loop over all sliders from all tabs.
-										idtable = '<br><table border="1"><tr><th width="50%"><center>Variable</center></th><th width="25%"><center>Value</center></th><th width="25%"><center>Weight</center></th></tr>';
+										idtable = `<br><div id="toggle-table" onclick='` + expandScript + `' style="cursor: pointer; color: blue; text-decoration: underline;">More Details</div><br/><div id="var-table" style="display:none"><table border="1"><tr><th width="50%"><center>Variable</center></th><th width="25%"><center>Value</center></th><th width="25%"><center>Weight</center></th></tr>`;
 										identifyValues = dojo.eval("[" + identifyResults.value + "]");
 										combinedFormulas = '';
 										array.forEach(this.formulas, lang.hitch(this,function(formula,idx){
@@ -1712,7 +1714,7 @@ define([
 												}
 											}));
 										}));
-										idtable = idtable + '</table>';
+										idtable = idtable + '</table></div>';
 										processResults("<br> Value at Mouse Click: <b>" + dojo.eval(combinedFormulas).toFixed(3).replace(".000", '') + "</b><br>" + idtable);
 									}
 								} else {
