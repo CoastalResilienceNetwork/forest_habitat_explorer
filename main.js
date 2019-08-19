@@ -283,6 +283,25 @@ define([
 						//handle level-of-detail logic here.
 					}));
 
+
+					//Instructions Tab
+					if (this.geography.intro != undefined && this.introPane == undefined) {
+						/* CBESSEE */
+
+						// Create Getting started panel
+						this.introPane = new ContentPane({
+							content: this.geography.intro.text,
+							style: "width: 475px; position: absolute; opacity: 1; top: 0px; padding: 0px !important; z-index: 950; height: 100%; overflow-y: scroll; background-color: white;"
+						});
+						dom.byId(this.container).appendChild(this.introPane.domNode);
+						this.exploreRecs = dojoquery(".exploreRecs");
+						console.log('woo');
+						on(this.exploreRecs, "click", lang.hitch(this,function(e) {
+							console.log('close click');
+							domStyle.set(this.introPane.domNode, "display", "none");
+						}));
+					}
+					
 					//after first call to active, this._hasactivated = true;
 					this._hasactivated = true;
 				},
@@ -379,6 +398,11 @@ define([
 					}
 					this._hasactivated = false;
 					this.explorerObject = dojo.eval("[" + explorer + "]")[0];
+
+					if(this.introPane != undefined) {
+						domStyle.set(this.introPane.domNode, "display", "none");
+						this.introPane = undefined;
+					}
 				},
 				/** 
 				 * Method: resize
@@ -719,24 +743,6 @@ define([
 						
 					}
 					domStyle.set(this.textnode, "display", "none");
-					//Instructions Tab
-					if (geography.intro != undefined) {
-						console.log('run again');
-						/* CBESSEE */
-
-						// Create Getting started panel
-						this.introPane = new ContentPane({
-							content: geography.intro.text,
-							style: "width: 475px; position: absolute; opacity: 1; top: 0px; padding: 0px !important; z-index: 950; height: 100%; overflow-y: scroll; background-color: white;"
-						});
-						dom.byId(this.container).appendChild(this.introPane.domNode);
-						this.exploreRecs = dojoquery(".exploreRecs");
-						console.log(this.exploreRecs);
-						on(this.exploreRecs, "click", lang.hitch(this,function(e){
-							console.log('close intro');
-							domStyle.set(this.introPane.domNode, "display", "none");
-						}));
-					}
 					ancillaryon = new Array();
 					//iterate over tabs array from config
 					array.forEach(geography.tabs, lang.hitch(this,function(tab, t){
@@ -1320,6 +1326,7 @@ define([
 					} else {
 						//Not Vector...
 						rfout = this.combiner.combineFunction(this.formulas, this.geography, this.Tformulas, rfuncs);
+						console.log(rfout);
 						this.legendContainer.innerHTML = '<div id="mExplorerLegend' + "_" + this.map.id + '">' + rfout.legendHTML + "</div>"
 						this.currentLayer.setRenderingRule(rfout.renderRule);
 					}
@@ -1477,7 +1484,7 @@ define([
 					//For both FOREST and STREAMS
 					innerSyms = "";
 					array.forEach(lcolorRamp, lang.hitch(this,function(cColor, i){
-						innerSyms = innerSyms + '<rect x="0" y ="'+ (i * 30) + '" width="30" height="20" style="fill:rgb('+ cColor[legIndexes[0]] + "," + cColor[legIndexes[1]] + "," + cColor[legIndexes[2]] + ');stroke-width:0;stroke:rgb(0,0,0)" />'
+						innerSyms = innerSyms + '<div style="position: absolute; left: 0; 		color-adjust: exact;  -webkit-print-color-adjust: exact; print-color-adjust: exact; width: 30px; height: 20px; border: 1px solid black; top: '+ (i * 30) + 'px; background-color:rgb('+ cColor[legIndexes[0]] + "," + cColor[legIndexes[1]] + "," + cColor[legIndexes[2]] + ');" ></div>'
 					}));
 					if ( this.geography.outputLabels == undefined) {
 						this.geography.outputLabels = [{text:"Low", "percent": "0"},{text:"Medium", "percent": "50"},{text:"High", "percent": "100"}];
@@ -1486,17 +1493,17 @@ define([
 					maxy = ((lcolorRamp.length) * 30) - 30;
 					labs = "";
 					array.forEach(this.geography.outputLabels, lang.hitch(this,function(lab, i){
-						labs = labs + '<text x="35" y="' +((maxy * (lab.percent / 100))  + 15) + '" fill="black">' + lab.text + '</text>'
+						labs = labs + '<div style="color: black; display: inline-block; left: 35px; top: ' +((maxy * (lab.percent / 100))) + 'px; position: absolute">' + lab.text + '</div>'
 					}));
 					this.legendContainer.innerHTML = '<div style="margin-bottom:7px" id="mExplorerLegend' + "_" + this.map.id + '">' + this.toolbarName + regfixname + ctabname + '</div>'
-						+ '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500px" height="' + lh + '">'
-						+ innerSyms + labs;
+						+ '<div style="position: relative;" width="500px" height="' + lh + '">'
+						+ innerSyms + labs + "</div>";
 					if (orgselectedIndex > -1) {
 						//For tabs other than the Instructions tab
 						this.currentLayer.setVisibility(true);
 						this.legendContainer.innerHTML = '<div style="margin-bottom:7px" id="mExplorerLegend' + "_" + this.map.id + '">' + this.toolbarName + regfixname + ctabname + '</div>'
-						+ '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500px" height="' + lh + '">'
-						+ innerSyms + labs
+						+ '<div style="position: relative; width: 500px; height: ' + lh + 'px;" >'
+						+ innerSyms + labs + "</div>";
 					} else {
 						//For the Instructions tab
 						this.currentLayer.setVisibility(false);
@@ -1863,6 +1870,8 @@ define([
 						}));
 					}));
 					leg = this.legendContainer.innerHTML;
+					console.log('working');
+					console.log("LEG HTML", jquery.parseHTMl(leg));
 					a = domGeom.position(dojoquery('#mExplorerLegend' + "_" + this.map.id)[0])
 					$printArea.append("<div id='legendprint' >" + leg + "</div>");
 					$printArea.append("<div id='formulaprint'>" + "Formula for Map: <br><br>" + this.geography.BandFormulaText + this.geography.printText + "</div>");
