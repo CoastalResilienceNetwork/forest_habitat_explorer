@@ -6,10 +6,10 @@
     "ddText": "Choose a Habitat",
     "betweenGroups": "*",
     "averageGroups": true,
-	"pluginWidth": 550,
+	"pluginWidth": 475,
 	"enableCustomPrint": false,
 	"infoGraphic": "RestorationExplorer_c.jpg",
-	"showInfoOnStart": false,
+	"showInfoOnStart": true,
 	"hoverText" : "Forest Explorer generates summaries of forest data for current condition, future threat, and climate change sensitivity and exposure. These are then used to map recommended conservation objectives. Can also be used in conjunction with our Guidebook to identify which Course Adjustment Worksheets to complete and provide information to help you do so.",
 	"noZoom": true,
     "regions": [
@@ -39,7 +39,7 @@
 								"type": "text"
 							},
 							{
-								"text": "<b>Current Condition Indicators:</b>",
+								"text": "<b>Current Condition Indicator Weights:</b>",
 								"type": "text"
 							},
 							{
@@ -112,7 +112,7 @@
 								"type": "text"
 							},
 							{
-								"text": "<b>Future Threat Indicators:</b>",
+								"text": "<b>Future Threat Indicator Weights:</b>",
 								"type": "text"
 							},
 							{
@@ -173,7 +173,7 @@
 								"type": "text"
 							},
 							{
-								"text": "<b>Climate Change Sensitivity Indicators:</b>",
+								"text": "<b>Climate Change Sensitivity Indicator Weights:</b>",
 								"type": "text"
 							},
 							{
@@ -246,7 +246,7 @@
 								"type": "text"
 							},
 							{
-								"text": "<b>Climate Change Exposure Indicators:</b>",
+								"text": "<b>Climate Change Exposure Indicator Weights:</b>",
 								"type": "text"
 							},
 							{
