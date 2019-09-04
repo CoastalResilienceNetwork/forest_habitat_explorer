@@ -324,6 +324,24 @@ define([
 						if (this._hasactivated == false) {
 							//1st call to activate falls into here
 							this.rebuildOptions(); 
+
+							//Instructions Tab
+							if (this.usableRegions[0].intro != undefined && this.introPane == undefined && this.stateRestore == false) {
+								/* CBESSEE */
+
+								// Create Getting started panel
+								this.introPane = new ContentPane({
+									content: this.usableRegions[0].intro.text,
+									style: "width: 475px; position: absolute; opacity: 1; top: 0px; padding: 0px !important; z-index: 950; height: 100%; overflow-y: scroll; background-color: white;"
+								});
+								dom.byId(this.container).appendChild(this.introPane.domNode);
+								this.introLaunched = true;
+								this.exploreRecs = dojoquery(".exploreRecs");
+								on(this.exploreRecs, "click", lang.hitch(this,function(e) {
+									console.log('close click');
+									domStyle.set(this.introPane.domNode, "display", "none");
+								}));
+							}
 						}
 						if ((this._hasactivated == false) && (this.usableRegions.length == 1)) {
 							//1st call to activate does not fall into here (because there is more than one usableRegion)
@@ -351,26 +369,9 @@ define([
 						//handle level-of-detail logic here.
 					}));
 
-
-					//Instructions Tab
-					if (this.geography.intro != undefined && this.introPane == undefined) {
-						/* CBESSEE */
-
-						// Create Getting started panel
-						this.introPane = new ContentPane({
-							content: this.geography.intro.text,
-							style: "width: 475px; position: absolute; opacity: 1; top: 0px; padding: 0px !important; z-index: 950; height: 100%; overflow-y: scroll; background-color: white;"
-						});
-						dom.byId(this.container).appendChild(this.introPane.domNode);
-						this.exploreRecs = dojoquery(".exploreRecs");
-						console.log('woo');
-						on(this.exploreRecs, "click", lang.hitch(this,function(e) {
-							console.log('close click');
-							domStyle.set(this.introPane.domNode, "display", "none");
-
-							var tabsArr = this.tabpan.getChildren();
-							this.tabpan.selectChild(tabsArr[tabsArr.length - 1]); 
-						}));
+					if(this._hasactivated == false && this.introLaunched == true) {
+						var tabsArr = this.tabpan.getChildren();
+						this.tabpan.selectChild(tabsArr[tabsArr.length - 1]); 
 					}
 					
 					//after first call to active, this._hasactivated = true;
@@ -597,6 +598,9 @@ define([
 					this.changeGeography(outreg, false);
 					tabs = this.tabpan.getChildren();
 					this.tabpan.selectChild(tabs[selectedIndex]);
+					if(selectedIndex == 0) {
+						domClass.remove(tabs[0].containerNode.parentNode, 'dijitHidden');
+					}
 				},
 				/** 
 				 * Method: resetTab
@@ -623,6 +627,9 @@ define([
 					this.changeGeography(this.geography, false);
 					tabs = this.tabpan.getChildren();
 					this.tabpan.selectChild(tabs[selectedIndex]);
+					if(selectedIndex == 0) {
+						domClass.remove(tabs[0].containerNode.parentNode, 'dijitHidden');
+					}
 				},
 				/** 
 				 * Method: resetPanel
