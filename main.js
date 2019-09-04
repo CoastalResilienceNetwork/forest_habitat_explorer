@@ -1109,6 +1109,11 @@ define([
 							//all other tabs
 							a = lang.hitch(this,function(){this.updateService()})
 							a();
+
+							if(selindex == 0) {
+								tabs = this.tabpan.getChildren();
+								domClass.remove(tabs[0].containerNode.parentNode, 'dijitHidden');
+							}
 						}
 						this.resize();
 					}));
