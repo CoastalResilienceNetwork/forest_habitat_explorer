@@ -1,7 +1,7 @@
 {
     "css": [
-        "plugins/habitat_explorer/cr-dojo-dijits.css",
-		"plugins/habitat_explorer/main.css"
+        "plugins/forest_habitat_explorer/cr-dojo-dijits.css",
+		"plugins/forest_habitat_explorer/main.css"
     ],
     "use": {
         "underscore": { "attach": "_" },
