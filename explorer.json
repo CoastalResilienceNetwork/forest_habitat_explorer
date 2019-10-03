@@ -27,7 +27,7 @@
 				"combined": {
 					"name": "Recommendations",
 					"hoverText": "Recommended conservation mgmt objectives & relative climate risk, based on condition, threat, sensitivity and exposure scores from the other tabs",
-					"text" : "<p><img style='width: 100%' src='plugins/forest_habitat_explorer/images/recomendations_graphic.jpg' /></p>",
+					"text" : "<p><img style='width: 100%' src='plugins/forest_habitat_explorer/images/recomendations_graphic.jpg' /></p><p><span style='font-weight: bold; font-size: 1.5rem;'>Step 1:<\/span> Identify the recommendations for your project area, and use the\u00A0<a href='http:\/\/www.naturalresourcenavigator.org\/wp-content\/uploads\/2016\/01\/Guidebook.pdf#page=10' target='_blank'>Conservation Objectives Course Adjustment Worksheets<\/a>\u00A0in the Guidebook that match the recommended objectives to develop strategies.<\/p><p><span style='font-weight: bold; font-size: 1.5rem;'>Step 2:<\/span> Click on the other tabs to help you complete <a href='http:\/\/www.naturalresourcenavigator.org\/wp-content\/uploads\/2016\/01\/Guidebook.pdf#page=10' target='_blank'>these worksheets<\/a> and determine what conditions, threats, and <a href='http:\/\/www.naturalresourcenavigator.org\/wp-content\/uploads\/2016\/01\/Guidebook.pdf#page=19' target='_blank'>climate change risks<\/a> you need to address to turn the recommended objective into a climate smart strategy.<\/p>",
 					"selected": true
 		  	},
 		  "tabs": [
